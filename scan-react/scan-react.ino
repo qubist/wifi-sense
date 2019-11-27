@@ -12,6 +12,11 @@ long lastScanMillis;
 #define PRINT_PERIOD 1000
 long lastPrintMillis;
 
+// max speed serve should turn one way or the other
+// do not set this over 90
+
+#define SERVO_MAX 50
+
 Servo myservo; // create servo object to control a servo
 
 // aliasing high and low because they're switched for the LED on the Feather HUZZAH
@@ -49,6 +54,10 @@ void setup() {
   myservo.attach(14);
   myservo.write(90); // stop servo
 }
+
+
+
+
 
 // declare the variables for unique networks and network strength.
 int n; // number of networks
@@ -178,16 +187,27 @@ void loop() {
   Serial.print("Strength delta: ");
   Serial.println(d);
 
-  // Position "90" (1.5ms pulse) is stop, "180" (2ms pulse) is full speed forward, "0" (1ms pulse) is full speed backwards.
-  int servoSpeed = map(d, 0, -500, 0, 180);
+  // Set servo speed based on the strength delta
+  // Recall: Position "90" (1.5ms pulse) is stop, "180" (2ms pulse) is full speed forward, "0" (1ms pulse) is full speed backwards.
+
+  int servoSpeed;
+  if (d < 0) {
+    // d is negative
+    servoSpeed = map(d, 0, -500, 80, 75);
+  } else {
+    // d is positive
+    servoSpeed = map(d, 500,  0, 105, 100);
+  }
+
   myservo.write(servoSpeed); // start servo moving at appropriate speed
+  Serial.print("Servo speed: ");
+  Serial.println(servoSpeed);
   }
 
   
 
-//  if (currentMillis - lastPrintMillis > PRINT_PERIOD)
-//  {
-//  lastPrintMillis = currentMillis;
+//  if (currentMillis - lastPrintMillis > PRINT_PERIOD) {
+//    lastPrintMillis = currentMillis;
 //  // we have n, u, and s from the previous scan
 //  //   for n, -2 means scan not started, -1 means scan in progress, positive int means that many networks found.
 //  //   We'll never see positive int here because the moment it's positive, we print things and then delete the scan.
