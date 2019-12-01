@@ -17,7 +17,10 @@ long lastPrintMillis;
 
 #define SERVO_MAX 50
 
-Servo myservo; // create servo object to control a servo
+Servo servo1; // create servo object to control a servo
+Servo servo2;
+Servo servo3;
+Servo servo4;
 
 // aliasing high and low because they're switched for the LED on the Feather HUZZAH
 #define ON LOW
@@ -51,8 +54,15 @@ void setup() {
 
   // attatch servo object to pin 14
   // Position "90" (1.5ms pulse) is stop, "180" (2ms pulse) is full speed forward, "0" (1ms pulse) is full speed backwards.
-  myservo.attach(14);
-  myservo.write(90); // stop servo
+  servo1.attach(14);
+  servo2.attach(12);
+  servo3.attach(13);
+  servo4.attach(15);
+
+  servo1.write(90); // stop servo
+  servo2.write(90);
+  servo3.write(90);
+  servo4.write(90);
 }
 
 
@@ -192,16 +202,26 @@ void loop() {
 
   int servoSpeed;
   if (d < 0) {
-    // d is negative
-    servoSpeed = map(d, 0, -500, 80, 75);
+    // d is negative          // slowest it can go down       fastest it can go down
+    servoSpeed = map(d, 0, -200, 89,                          75);
   } else {
-    // d is positive
-    servoSpeed = map(d, 500,  0, 105, 100);
+    // d is positive          // fastest it can go up         slowest it can go up
+    servoSpeed = map(d, 300,  0, 104,                         105);
   }
 
-  myservo.write(servoSpeed); // start servo moving at appropriate speed
+  servo1.write(servoSpeed); // start servo moving at appropriate speed
+  servo2.write(servoSpeed); // start servo moving at appropriate speed
+  servo3.write(servoSpeed); // start servo moving at appropriate speed
+  servo4.write(servoSpeed); // start servo moving at appropriate speed
+
   Serial.print("Servo speed: ");
   Serial.println(servoSpeed);
+  // calibration:
+//  servo1.write(90);
+//  servo2.write(90);
+//  servo3.write(90);
+//  servo4.write(90);
+
   }
 
   
