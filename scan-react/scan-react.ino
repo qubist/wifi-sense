@@ -203,21 +203,32 @@ void loop() {
   int servoSpeed;
   if (d < 0) {
     // d is negative          // slowest it can go down       fastest it can go down
-    servoSpeed = map(d, 0, -200, 89,                          75);
+    servoSpeed = map(d, 0, -400, 89,                          78);
   } else {
     // d is positive          // fastest it can go up         slowest it can go up
-    servoSpeed = map(d, 300,  0, 104,                         105);
+    servoSpeed = map(d, 400,  0, 100,                         95);
   }
 
-  servo1.write(servoSpeed); // start servo moving at appropriate speed
-  servo2.write(servoSpeed); // start servo moving at appropriate speed
-  servo3.write(servoSpeed); // start servo moving at appropriate speed
-  servo4.write(servoSpeed); // start servo moving at appropriate speed
+  if ((servoSpeed >= 78) && (servoSpeed <= 100)){ // don't go too fast
+    servo1.write(servoSpeed); // start servo moving at appropriate speed
+    servo2.write(servoSpeed);
+    servo3.write(servoSpeed); 
+    servo4.write(servoSpeed);
+    Serial.print("Servo speed: ");
+    Serial.println(servoSpeed);
+  }
+  else {
+    servo1.write(90); // stop servo
+    servo2.write(90);
+    servo3.write(90); 
+    servo4.write(90);
+    Serial.print("Servo STOPPED from speed: ");
+    Serial.print(servoSpeed);
+  }
 
-  Serial.print("Servo speed: ");
-  Serial.println(servoSpeed);
+
   // calibration:
-//  servo1.write(90);
+// servo1.write(90);
 //  servo2.write(90);
 //  servo3.write(90);
 //  servo4.write(90);
