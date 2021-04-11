@@ -1,7 +1,7 @@
 # wifi-sense
 
 ## Background
-A project for a Body Media: Wearable Technology and Digital Bodies class I took in 2019. See [my presentation](https://docs.google.com/presentation/d/1r_tBhj9RS4nRJ_BajCrWeI7B-XGWrBBcE8F0kI_F-8U/edit?usp=sharing) for an explanation of the project.
+A project for a Body Media: Wearable Technology and Digital Bodies class I took in 2019. See [my presentation](/Wearable%20Tech%20Art%20Project%20Proposal%20subconsciously%20sensing%20WiFi%20networks.pdf) for an explanation of the project.
 
 ## Pictures
 
